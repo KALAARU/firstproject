@@ -11,7 +11,18 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
-
+class User(models.Model):
+    username = models.CharField(max_length=30)
+    password = models.CharField(max_length=50)
+    total_points = models.IntegerField(default=0)
+    def __str__(self):
+        return self.username
+class QuestionUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.question.question_text
+    
